@@ -1,0 +1,37 @@
+﻿@model Ecommerce.Models.Address
+@{
+    ViewBag.Title = "ordt";
+}
+
+<h2>ordt</h2>
+
+<div class="container">
+    <div>
+        @using(Html.BeginForm("ordt", "Shop", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <label>name</label>
+            @Html.TextBoxFor(model => model.FirstName)
+
+            <label>lname</label>
+            @Html.TextAreaFor(model => model.LastName)
+            <label>email</label>
+            @Html.TextBoxFor(model => model.Email)
+            <label>mobile</label>
+            @Html.TextBoxFor(model => model.Mobile)
+            <label>address</label>
+            @Html.TextBoxFor(model => model.Addresses)
+            <label>amount</label>
+
+            <input type="text" name="amount" value="@TempData["total"]" />
+            <label>zipcode</label>
+            @Html.TextBoxFor(model => model.ZipCode)
+
+            <label>cname</label>
+            @Html.TextBoxFor(model => model.CompanyName)
+
+            <input type="submit" value="submit" />
+        }
+    </div>
+</div>
+

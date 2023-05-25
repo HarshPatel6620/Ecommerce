@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Ecommerce.Models.OrderDetail>
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="cart-title mt-50">
+                    <h2 class="justify-content-center" style="margin-left:50%;">Orders History</h2>
+                </div>
+
+                <div class="cart-table clearfix">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr style="width:80%;">
+                                <th></th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th style="background-color:ghostwhite">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody style="width:80%">
+
+                            @foreach (var item in ViewBag.od)
+                            {
+
+                                <tr>
+                                    <td class="cart_product_img">
+                                        <a href="@Url.Action("od","Shop",new {id=item.Id })"><img src="@Url.Content(item.Product.ImagePath)" alt="Product"></a>
+                                    </td>
+
+                                    <td class="cart_product_desc">
+                                        <h5>@item.Product.Title</h5>
+                                    </td>
+                                    <td class="price">
+                                        <span>@item.UnitPrice</span>
+                                    </td>
+                                    <td class="qty">
+                                        <div class="qty-btn d-flex">
+                                            <p>@item.Qty</p>
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span>@item.Order.OrderDate</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

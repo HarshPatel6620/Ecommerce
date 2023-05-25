@@ -1,0 +1,78 @@
+﻿
+
+@model IEnumerable<Ecommerce.Models.Product>
+@{
+    ViewBag.Title = "Search";
+
+}
+
+<div class="amado_product_area section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            
+            @{foreach (var item in Model)
+                {
+
+                    <!-- Single Product Area -->
+                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+
+                        <div class="single-product-wrapper">
+                            <!-- Product Image -->
+                            <div class="product-img">
+                                <img src="@Url.Content(item.ImagePath)" alt="">
+                                <!-- Hover Thumb -->
+                                <img class="hover-img" src="img/product-img/product2.jpg" alt="">
+                            </div>
+
+                            <!-- Product Description -->
+                            <div class="product-description d-flex align-items-center justify-content-between">
+                                <!-- Product Meta Data -->
+                                <div class="product-meta-data">
+                                    <div class="line"></div>
+                                    <p class="product-price">@item.Price</p>
+                                    <h6><a href="@Url.Action("productdetails", "Shop", new { id = item.Id })">@item.Title</a></h6>
+                                    <a href="product-details.html"></a>
+
+                                    @*@Html.ActionLink("Addtocart", "Addtocart", new { id = item.Id })*@
+
+                                </div>
+                                <!-- Ratings & Cart -->
+                                <div class="ratings-cart text-right">
+                                    <div class="ratings">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="cart">
+                                        @using (Html.BeginForm("Addtocart", "Shop", FormMethod.Post))
+                                        {
+                                            <div class="row">
+                                                <div class="">
+                                                    <input type="hidden" name="id" value="@item.Id" />
+
+                                                </div>
+
+                                                <div>
+                                                    <input type="hidden" placeholder="Quantity" max="10" name="qty" value="1" />
+
+                                                </div>
+
+                                            </div>
+
+                                            <button type="submit"><img src="~/Adminstyle/img/core-img/cart.png" alt=""></button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                }
+            }
+
+        </div>
+    </div>
+</div>

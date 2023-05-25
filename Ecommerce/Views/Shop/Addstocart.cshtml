@@ -1,0 +1,45 @@
+﻿@model Ecommerce.Models.Product
+
+
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <img style="height:500px;" src="@Url.Content(Model.ImagePath)" />
+            </div>
+            <div>
+                <h3>@Model.Title</h3>
+                <p>@Model.Price</p>
+                <input type="number" placeholder="Quantity" max="10" name="qty" />
+                <input type="submit" value="Addtocart" />
+            </div>
+
+        </div>
+    }
+
+</div>
+
+
+
+    @*
+        <div class="container">
+            @using (Html.BeginForm())
+            {
+                <div class="row">
+                    <div class="">
+                        <input type="hidden" name="id" value="" />
+                        <img style="height:500px;" src="@Url.Content(Model.ImagePath)" />
+                    </div>
+
+                    <div>
+                        <h3>@Model.Title</h3>
+                        <p>@Model.Price</p>
+                        <input type="number" placeholder="Quantity" max="10" name="qty" />
+                        <input type="submit" value="Addtocart" />
+                    </div>
+                </div>
+            }
+    *@
+</div>

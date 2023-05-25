@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Ecommerce.Models.Color>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 70%;
+        border: 1px solid #ddd;
+        margin-top: 55px;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 10px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    a {
+        font-size: 20px;
+    }
+</style>
+
+<a href="~/Admin/Colors/Create/">
+    <input type="button" value="Create" class="btn btn-outline-primary" @* style="position: absolute;margin-left: 25px;"*@>
+</a>
+<table class="">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ColorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ColorCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorCode)
+            </td>
+            @*<td>@Html.DisplayFor(modelItem => item.ColorCode)</td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @style = "color:green;" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id },
+                new { onclick = "return confirm('Are sure wants to delete?');" })
+            </td>
+        </tr>
+    }
+
+</table>

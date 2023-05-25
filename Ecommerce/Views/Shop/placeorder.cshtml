@@ -1,0 +1,203 @@
+﻿@model Ecommerce.Models.Order
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <div class="cart-table-area section-padding-100">
+        <div class="container-fluid">
+            @using (Html.BeginForm("placeorder", "Shop", FormMethod.Post, new { id = "placeorder" }))
+            {
+                <div class="row">
+
+                    <div class="col-12 col-lg-8">
+                        <div class="checkout_details_area mt-50 clearfix">
+                            <div class="row">
+                                <div class="col-12 col-lg-8">
+                                    <div class="checkout_details_area mt-50 clearfix">
+                                        <div class="cart-title">
+                                            <h2>Checkout</h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <input type="text" class="form-control" name="fname" id="fname" value="" placeholder="First Name" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <input type="text" class="form-control" name="lname" id="lname" value="" placeholder="Last Name">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <input type="text" class="form-control" name="company" id="company" placeholder="Company Name" value="">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <select class="w-100" id="country">
+                                                    <option value="usa">United States</option>
+                                                    <option value="uk">United Kingdom</option>
+                                                    <option value="ger">Germany</option>
+                                                    <option value="fra">France</option>
+                                                    <option value="ind">India</option>
+                                                    <option value="aus">Australia</option>
+                                                    <option value="bra">Brazil</option>
+                                                    <option value="cana">Canada</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <input type="text" class="form-control mb-3" name="Add" id="street_address" placeholder="Address" value="">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <input type="text" class="form-control" id="city" name="city" placeholder="Town" value="">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <input type="text" class="form-control" name="zip" id="zip" min="6" max="6" placeholder="Zip Code" value="">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <input type="number" class="form-control" name="mobile" id="mobile" min="0" max="10" placeholder="Phone No" value="">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <textarea name="comment" class="form-control w-100" id="comment" cols="30" rows="10" placeholder="Leave a comment about your order"></textarea>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="custom-control custom-checkbox d-block mb-2">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                    <label class="custom-control-label" for="customCheck2">Create an accout</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox d-block">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                                    <label class="custom-control-label" for="customCheck3">Ship to a different address</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="cart-summary">
+                            <h5>Cart Total</h5>
+
+                            <ul class="summary-table">
+                                <li><span>subtotal:</span> <span>@TempData["total"]</span></li>
+                                <li><span>delivery:</span> <span>Free</span></li>
+                                <li><span>total:</span> <span name="total">@TempData["total"]</span></li>
+                            </ul>
+
+
+                            <div class="payment-method">
+                                <!-- Cash on delivery -->
+                                <div class="custom-control custom-checkbox mr-sm-2">
+                                    <input type="checkbox" class="custom-control-input" id="cod" checked>
+                                    <label class="custom-control-label" for="cod">Cash on Delivery</label>
+                                </div>
+                                <!-- Paypal -->
+                                <div class="custom-control custom-checkbox mr-sm-2">
+                                    <input type="checkbox" class="custom-control-input" id="paypal">
+                                    <label class="custom-control-label" for="paypal">Paypal <img class="ml-15" src="img/core-img/paypal.png" alt=""></label>
+                                </div>
+                            </div>
+
+                            <div class="cart-btn mt-100">
+                                <input type="submit" id="btnvalidate" class="btn amado-btn w-100" value="Placeorder" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+
+
+<button id="rzp-button1">Pay</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    debugger;
+        var options = {
+            "Key":"@Html.DisplayFor(x => x.razorpaykey)",
+            "amount":"@Html.DisplayFor(model=>model.OrderAmount)",
+            "currency": "@Html.DisplayFor(model=>model.currency)",
+            "name": "@Html.DisplayFor(model=>model.FirstName)",
+            "description": "Buy Green Tea",
+            "order_id": "@Html.DisplayFor(model=>model.orderId)",
+            "image": "https://example.com/your_logo",
+            "handler": function (response) {
+                document.getElementById('rzp_paymentid').value = response.razorpay_payment_id;
+                document.getElementById('rzp_orderid').value = response.razorpay_order_id;
+
+                document.getElementById('rzp-paymentresponse').click();
+            },
+
+
+            "prefill": {
+                "name": "@Html.DisplayFor(model=>model.FirstName)",
+                "email": "@Html.DisplayFor(model=>model.Email)",
+                "contact": "@Html.DisplayFor(model=>model.Mobile)"
+            },
+            "notes": {
+                "address": "@Html.DisplayFor(model=>model.Address)"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+
+        var rzp1 = new Razorpay(options);
+
+        window.onload = function () {
+            document.getElementById('rzp-button1').click();
+    };
+    $('#rzp-button1').click(function (e) {
+        rzp1.open();
+        e.preventDefault();
+
+    })
+
+
+
+</script>
+
+@using (Html.BeginForm("Complete", "Shop"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Hidden("rzp_paymentid");
+    @Html.Hidden("rzp_orderid");
+
+    @* <input id="razorpay_signature" type="hidden" name="razorpay_signature" />*@
+    <button type="submit" id="rzp-paymentresponse" class="btn btn-primary" hidden>subbb</button>
+}
+@*<script>
+
+        $(function () {
+            var $placeorder = $('#placeorder');
+            if ($placeorder.length) {
+                $placeorder.validate({
+                    rules: {
+                        fname: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        fname: {
+                            required: 'name is required'
+                        }
+                    }
+                })
+            }
+
+        })
+
+
+    </script>
+*@

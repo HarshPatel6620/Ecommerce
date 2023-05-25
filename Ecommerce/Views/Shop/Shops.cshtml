@@ -1,0 +1,236 @@
+﻿@using Ecommerce.Models;
+@using PagedList;
+@using PagedList.Mvc;
+
+
+@model PagedList.IPagedList<Product>
+
+@*@model IEnumerable<Ecommerce.Models.Product>*@
+@*@Html.Action("productlist", "Shop")*@
+<div class="shop_sidebar_area">
+
+    <!-- ##### Single Widget ##### -->
+    <div class="widget catagory mb-50">
+        <!-- Widget Title -->
+        <h6 class="widget-title mb-30">Catagories</h6>
+
+        <!--  Catagories  -->
+        <div class="catagories-menu">
+            <ul>
+                @foreach (var item in ViewBag.cat)
+                {
+                    <li><a href="@Url.Action("Shop","Shop",new {id = @item.Id })">@item.CategoryName</a></li>
+                }
+                @*<li class="active"><a href="#">Chairs</a></li>
+                    <li><a href="#">Beds</a></li>
+                    <li><a href="#">Accesories</a></li>
+                    <li><a href="#">Furniture</a></li>
+                    <li><a href="#">Home Deco</a></li>
+                    <li><a href="#">Dressings</a></li>
+                    <li><a href="#">Tables</a></li>*@
+            </ul>
+        </div>
+    </div>
+
+    <!-- ##### Single Widget ##### -->
+    <div class="widget brands mb-50">
+        <!-- Widget Title -->
+        <h6 class="widget-title mb-30">Brands</h6>
+
+        <div class="widget-desc">
+            <!-- Single Form Check -->
+            <div class="form-check">
+                @using (Html.BeginForm())
+                {
+                    foreach (var item in ViewBag.brand)
+                    {
+                        @*<label class="form-check-label"  for="@item.BrandName">
+                                <input class="form-check-input" name="brand" type="checkbox" value="" id="@item.BrandName">
+                                @item.BrandName
+                            </label><br />*@
+                        <input type="checkbox" id="" name="brand" value="@item.BrandName"> <label>@item.BrandName</label><br />
+                    }
+                    <button class="btn btn-warning" style="height:50pt; width:50pt" type="submit"><i class="fa fa-filter" style="transform: rotate(90);"></i></button>
+                }
+            </div>
+            <!-- Single Form Check -->
+
+        </div>
+    </div>
+
+    <!-- ##### Single Widget ##### -->
+    <div class="widget color mb-50">
+        <!-- Widget Title -->
+        <h6 class="widget-title mb-30">Color</h6>
+
+        <div class="widget-desc">
+            <ul class="d-flex" id="clr">
+                @*@foreach (var item in Model.col)
+                    {*@
+
+                @* <li><a href="@Url.Action("Index","Shop",new {cid = item.Id  })" id="cl" class="color5">@item.ColorName</a></li>*@
+                <li><a href="/Shop?cid=1" id="cl" class="color5">Red</a></li>
+                <li><a href="/Shop?cid=2" id="cl" class="color8">wood</a></li>
+                @*}*@
+
+            </ul>
+        </div>
+    </div>
+
+    <!-- ##### Single Widget ##### -->
+    <div class="widget price mb-50">
+        <!-- Widget Title -->
+        <h6 class="widget-title mb-30">Price</h6>
+        @using (Html.BeginForm())
+        {
+
+            <div class="col-lg-2 col-sm-12 mt-3">
+                <div class="form-group">
+                    <input class="form-control" style="width:150px;" placeholder="From Price" type="number" name="startprice" id="" value="">
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-12 mt-3">
+                <div class="form-group">
+                    <input class="form-control" style="width:150px;" type="number" placeholder="To Price" name="endprice" id="" value="">
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-sm-12 mt-3">
+                <div class="form-group">
+
+
+                    <button class="btn btn-warning" style="height:50pt; width:50pt" type="submit"><i class="fa fa-filter" style="transform: rotate(90);"></i></button>
+                </div>
+            </div>
+
+        }
+
+        <div class="widget-desc">
+
+            <div class="slider-range">
+                <div data-min="10" data-max="1000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="10" data-value-max="1000" data-label-result="">
+                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                    <span class="ui-slider-handle ui-state-default ui-corner-all" name="start" tabindex="0"></span>
+                    <span class="ui-slider-handle ui-state-default ui-corner-all" name="end" tabindex="0"></span>
+                </div>
+                <div class="range-price">$10 - $1000</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="amado_product_area section-padding-100">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="product-topbar d-xl-flex align-items-end justify-content-between">
+                    <!-- Total Products -->
+                    <div class="total-products">
+                        <p>Showing 1-8 0f 25</p>
+                        <div class="view d-flex">
+                            <a href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+
+
+                    <!-- Sorting -->
+                    <div class="product-sorting d-flex">
+                        <div class="sort-by-date d-flex align-items-center mr-15">
+                            <p>Sort by Date</p>
+
+
+                            @using (Html.BeginForm())
+                            {
+                                <select name="select" id="sortBydate">
+                                    <option value="value">Date</option>
+                                    <option value="">Newest</option>
+                                    <option value="value">Popular</option>
+                                </select>
+                                <input type="submit" value="..." />
+                            }
+
+
+
+
+
+                        </div>
+                        <div class="view-product d-flex align-items-center">
+                            <p>View</p>
+                            <form action="#" method="get">
+                                <select name="select" id="viewProduct">
+                                    <option value="value">12</option>
+                                    <option value="value">24</option>
+                                    <option value="value">48</option>
+                                    <option value="value">96</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @*  @using (Html.BeginForm(FormMethod.Get))
+            {
+                @Html.TextBox("search")
+                <input type="submit" value="search" />
+            }*@
+
+
+        <div class="row">
+            @{foreach (var item in Model)
+                {
+                    <!-- Single Product Area -->
+                    <div class="col-12 col-sm-6 col-md-12 col-xl-6" id="hamper">
+
+                        <div class="single-product-wrapper" style="">
+                            <!-- Product Image -->
+                            @*<div class="product-img">*@
+                            <a href="@Url.Action("productdetails","Shop",new {id=item.Id })"> <img style="" src="@Url.Content(item.ImagePath)" alt=""></a>
+                            <!-- Hover Thumb -->
+                            @*<img class="hover-img" src="img/product-img/product2.jpg" alt="">*@
+                            @*</div>*@
+
+                            <!-- Product Description -->
+                            <div class="product-description d-flex align-items-center justify-content-between">
+                                <!-- Product Meta Data -->
+                                <div class="product-meta-data">
+                                    <div class="line"></div>
+                                    <p class="product-price">@item.Price</p>
+                                    <a href="@Url.Action("productdetails","Shop",new {id = item.Id})"><h5>@item.Title</h5></a>
+                                    <a href="product-details.html"></a>
+
+                                    @*@Html.ActionLink("Addtocart", "Addtocart", new { id = item.Id })*@
+
+                                </div>
+                                <!-- Ratings & Cart -->
+                                <div class="ratings-cart text-right">
+                                    <div class="ratings">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="cart">
+                                        <a href="@Url.Action("Addtocart","Shop", new { id = item.Id})" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="~/Adminstyle/img/core-img/cart.png" alt=""></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            }
+
+        </div>
+        <div>
+            <div style="float:right;display:inline-block !important;">Total: <span style="font-weight:bold">@Model.TotalItemCount</span></div>
+            <div style=" float:left; margin-top:-30px;">
+                @Html.PagedListPager(Model, Page => Url.Action("Shop", new { page = Page }))
+            </div>
+        </div>
+    </div>
+</div>

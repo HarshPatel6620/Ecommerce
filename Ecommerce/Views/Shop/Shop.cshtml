@@ -1,0 +1,369 @@
+﻿@using Ecommerce.Models;
+@using PagedList;
+@using PagedList.Mvc;
+
+
+@model PagedList.IPagedList<Product>
+@{
+    var i = 0;
+}
+
+<style>
+    .active, .cat:hover {
+@*        background-color: #666;*@
+        color: yellow;
+    }
+</style>
+
+
+@*@model IEnumerable<Ecommerce.Models.Product>*@
+@*@Html.Action("productlist", "Shop")*@
+<div class="shop_sidebar_area">
+
+    <!-- ##### Single Widget ##### -->
+    <div class="widget catagory mb-50">
+        <!-- Widget Title -->
+        <h6 class="widget-title mb-30">Catagories</h6>
+
+        <!--  Catagories  -->
+        <div class="catagories-menu">
+            <ul class="categ">
+                <div id="cat">
+                    @foreach (var item in ViewBag.cat)
+                    {
+                        <li id="@item.Id" class="cl" style="margin:25px;">@item.CategoryName</li>
+                        @*<li id="@item.Id"><a href="@Url.Action("Shop","Shop",new {catid = item.Id })">@item.CategoryName</a></li>*@
+
+                        @* <li><a href="@Url.Action("Shop","Shop",new {catid = @item.Id })">@item.CategoryName</a></li>*@
+                        i++;
+                    }
+                </div>
+                @*<li class="active"><a href="#">Chairs</a></li>
+
+        <li><a href="#">Accesories</a></li>
+        <li><a href="#">Furniture</a></li>
+        <li><a href="#">Home Deco</a></li>
+        <li><a href="#">Dressings</a></li>
+        <li><a href="#">Tables</a></li>*@
+            </ul>
+        </div>
+    </div>
+
+    <!-- ##### Single Widget ##### -->
+    <div class="widget brands mb-50">
+        <!-- Widget Title -->
+        <h6 class="widget-title mb-30">Brands</h6>
+
+        <div class="widget-desc">
+            <!-- Single Form Check -->
+            <div class="form-check">
+                @*   @using (Html.BeginForm())
+                    {*@
+                @foreach (var item in ViewBag.brand)
+                {
+                    @*<label class="form-check-label"  for="@item.BrandName">
+                            <input class="form-check-input" name="brand" type="checkbox" value="" id="@item.BrandName">
+                            @item.BrandName
+                        </label><br />*@
+                    <div class="form-check">
+
+                        <input type="checkbox" class="checkbox" id="@item.Id">
+                        <label for="@item.BrandName">@item.BrandName</label>
+
+                    </div>
+                }
+                @*<button class="btn btn-warning" style="height:50pt; width:50pt" type="submit"><i class="fa fa-filter" style="transform: rotate(90);"></i></button>*@
+                @*}*@
+            </div>
+            <!-- Single Form Check -->
+
+        </div>
+    </div>
+
+    <!-- ##### Single Widget ##### -->
+    <div class="widget color mb-50">
+        <!-- Widget Title -->
+        <h6 class="widget-title mb-30">Color</h6>
+
+        <div class="widget-desc">
+            <ul class="d-flex">
+                @*@foreach (var item in ViewBag.col)
+                {
+                    <li id="@item.Id" class="clr">@item.ColorName</li>
+                }*@
+                <li><a id="1" class="clr color5"></a></li>
+                <li> <a id="2" class="clr color8"></a></li>
+                @*<li id="3" class="clr">Red</li>*@
+
+                @* <li><a href="~/Shop/Shop?clid=1" id="cl" class="color5">Red</a></li>
+        <li> <a href="/Shop/Shop?clid=2" id="cl" class="color8">wood</a></li>*@
+            </ul>
+        </div>
+    </div>
+
+    <!-- ##### Single Widget ##### -->
+    <div class="widget price mb-50">
+        <!-- Widget Title -->
+        <h6 class="widget-title mb-30">Price</h6>
+        @*@using (Html.BeginForm())
+        {
+
+            <div class="col-lg-2 col-sm-12 mt-3">
+                <div class="form-group">
+                    <input class="form-control" style="width:150px;" placeholder="From Price" type="number" name="startprice" id="min" value="">
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-12 mt-3">
+                <div class="form-group">
+                    <input class="form-control" style="width:150px;" type="number" placeholder="To Price" name="endprice" id="max" value="">
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-sm-12 mt-3">
+                <div class="form-group">
+
+
+                    <button class="btn btn-warning" style="height:50pt; width:50pt" type="submit"><i class="fa fa-filter" style="transform: rotate(90);"></i></button>
+                </div>
+            </div>
+
+        }*@
+
+
+        <div class="widget-desc">
+            <div class="slider-range">
+
+            </div><br>
+            <p class="Amount">Price: $0 - $1500</p>
+        </div>
+    </div>
+</div>
+<div class="amado_product_area section-padding-100">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="product-topbar d-xl-flex align-items-end justify-content-between">
+                    <!-- Total Products -->
+                    <div class="total-products">
+                        <p>page @(Model.PageCount < Model.PageNumber ? 0: Model.PageNumber) of @Model.PageCount</p>
+                        <p>Showing 1-8 0f 25</p>
+                        <div class="view d-flex">
+                            <a href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+
+
+                    <!-- Sorting -->
+                    <div class="product-sorting d-flex">
+                        <div class="sort-by-date d-flex align-items-center mr-15">
+                            <p>Sort by Date</p>                            
+                             <select id="sortBydate" onchange="sorting(this)">
+                                    <option value="1">Date</option>
+                                    <option value="2">Newest </option>
+                                    <option value="3">Popular</option>
+                                </select>                         
+                        </div>
+                        <div class="view-product d-flex align-items-center">
+                            <p>View</p>
+                            <form action="#" method="get">
+                                <select name="select" id="viewProduct">
+                                    <option value="value">12</option>
+                                    <option value="value">24</option>
+                                    <option value="value">48</option>
+                                    <option value="value">96</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @*  @using (Html.BeginForm(FormMethod.Get))
+            {
+                @Html.TextBox("search")
+                <input type="submit" value="search" />
+            }*@
+
+
+    </div>
+
+    @*<div>
+            <div style="float:right;display:inline-block !important;">Total: <span style="font-weight:bold">@Model.TotalItemCount</span></div>
+            <div style=" float:left; margin-top:-30px;">
+                @Html.PagedListPager(Model, Page => Url.Action("Shop", new {page=Page  }))
+            </div>
+        </div>*@
+
+    <div class="row productsDiv" id="MainData">
+
+        @{
+            Html.RenderPartial("FilterProducts", Model);
+
+        }
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <!-- Pagination -->
+            <nav aria-label="navigation">
+                <ul class="pagination justify-content-end mt-50">
+                    @foreach (var item in Page)
+                    {
+                        <li class="page-item active"><a class="page-link" href="@Url.Action("Shop", new { page = 1, sortdate = ViewBag.currentsort, sortOrder = ViewBag.currentsort })">@item </a></li>
+                    }
+                    <li class="page-item active"><a class="page-link" href="@Url.Action("Shop", new { page = 1, sortdate = ViewBag.currentsort, sortOrder = ViewBag.currentsort })">01.</a></li>
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Shop", new { Page=2 , sortdate = ViewBag.currentsort })">02.</a></li>
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Shop", new { Page=3 , sortdate = ViewBag.datesort })">03.</a></li>
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Shop", new { Page , sortdate = ViewBag.datesort })">04.</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <div class="pagination">
+        <ul class="pagination justify-content-end mt-50">
+            <li class="page-item">
+                <a href="page-link">
+                    @Html.PagedListPager(Model, Page => Url.Action("Shop", new { page = Page, sortdate = ViewBag.currentsort }))
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@*
+<script>
+    $("select")
+        .change(function () {
+            var str = "";
+            $("select option:selected").each(function () {
+                str += $(this).text() + " ";
+                console.log("str");
+            });
+            $("div").text(str);
+        })
+        .change();
+</script>*@
+
+<script>
+    slidMin = 0;
+    slidMax = @ViewBag.d;
+    
+
+    $('.checkbox').change(function () {
+
+        debugger;
+        var str = "";
+        var ct = $(".cl.active").attr("id");
+      
+
+        str = getSelectedCheckbox();
+        console.log("str");
+        str = str.replace(/,\s*$/, "");
+        
+        GetData(str, slidMin, slidMax, ct);
+    });
+
+    function getSelectedCheckbox(){
+        var str = "";
+        $('input[type=checkbox]').each(function () {
+            if ($(this).prop("checked")) {
+                str = str + $(this).attr("id") + ",";
+            }
+        });
+        return str;
+    }
+
+    $(".slider-range").slider({
+        
+        range: true,
+        min: 0,
+        max: @ViewBag.d,
+        values: [0, @ViewBag.d],
+        slide: function (event, ui) {
+            var minPrice = ui.values[0];
+            var maxPrice = ui.values[1];
+            slidMin = minPrice;
+            slidMax = maxPrice;
+            $(".Amount").html("Price: $" + ui.values[0] + ' - $' + ui.values[1]);
+            console.log("slider");
+            var str = "";
+            var ct = $(".cl.active").attr("id");
+            str = getSelectedCheckbox();
+            GetData(str,minPrice, maxPrice,ct);
+
+        }
+    });
+
+    function GetData(id, minimumPrice, maximumPrice,catid,clid) {
+        $.ajax({
+            url: '@Url.Action("FilterProducts", "Shop")',
+            data: {
+                id:id,
+                minimumPrice: minimumPrice,
+                maximumPrice: maximumPrice,
+                catid: catid,
+                clid:clid,
+            }, contentType: "application/json; charset=utf-8",
+            dataType: "json",
+        })
+            .done(function (response) {
+                $(".productsDiv").html("");
+                $(".productsDiv").html(response.offerHtml);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("FAIL");
+        });
+    }
+
+    $('.cl ').click(function () {
+        var ct = '';
+        debugger;
+        $(this).parent().find(".cl").removeClass("active");
+        str = getSelectedCheckbox();
+
+        ct = $(this).attr("id");
+        $(this).addClass("active");
+        
+        
+        console.log(ct);
+        GetData(str,slidMin, slidMax,ct);
+    });
+     
+
+    $(".clr").click(function () {
+        var col = '';
+        col = $(this).attr("id");
+        str = getSelectedCheckbox();
+        var ct = $(".cl.active").attr("id");
+        console.log(col);
+        GetData(str, slidMin, slidMax, ct,col);
+    })
+
+
+
+    $(document).ready(function () {
+        $('.category ').click(function (e) {
+            var catid = '';
+            str = getSelectedCheckbox();
+
+            console.log($(this).val);
+        });
+    });
+
+
+    function sorting(selectObject) {
+
+        var value = selectObject.value;
+        console.log(value);
+        str = str + $(this).attr("id") + ",";
+        GetData()
+    }
+
+
+
+</script>

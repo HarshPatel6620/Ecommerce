@@ -1,0 +1,131 @@
+﻿@using Ecommerce.Models;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="cart-title mt-50">
+                    <h2>Shopping Cart</h2>
+                </div>
+                @Html.ActionLink("Clearcart", "cleacart", "Shop")
+                <div class="cart-table clearfix">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr style="width:80%;">
+                                <th></th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th style="background-color:ghostwhite">remove</th>
+                            </tr>
+                        </thead>
+                        <tbody style="width:80%">
+                           @* @if (TempData["cart"] as List<Ecommerce.Models.cart> != null)
+                            {*@
+                                @foreach (var item in (List<Ecommerce.Models.cart>)Session["cart"])
+                                {
+
+                                    <tr>
+                                        <td class="cart_product_img">
+                                            <a href="#"><img src="@Url.Content(item.Product.ImagePath)" alt="Product"></a>
+                                        </td>
+
+                                        <td class="cart_product_desc">
+                                            <h5>@item.Product.Title</h5>
+                                        </td>
+                                        <td class="price">
+                                            <span>@item.Product.Price</span>
+                                        </td>
+                                        <td class="qty">
+
+                                            <div class="qty-btn d-flex">
+
+
+                                                <div class="">
+                                                    @*<button type="button" id="plus"> + </button>
+                                                        <input value="@item.Qty" min="1" max="5" type="number" step="1" name="quantity" id="quantity">
+                                                        <a href="@Url.Action("Checkout","Shop",new {id= item.id })"> <button type="button" id="minus"> - </button></a>*@
+                                                    <a href="@Url.Action("minus", "Shop", new { id = @item.Product.Id })"><span class="ion-ios-close">➖</span></a>
+                                                    <input type="number" class="qty-text" id="qty3" step="1" min="1" max="300" name="quantity" value="@item.Quantity">
+                                                    <a href="@Url.Action("plus", "Shop", new { id = @item.Product.Id })"><span class="ion-ios-close">➕</span></a>
+                                                </div>
+
+
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("remove", "Shop", new { id = item.Product.Id })"><span class="ion-ios-close">❌</span></a>
+                                        </td>
+                                    </tr>
+                                }
+                         @*   }
+                            else
+                            {
+                                <h1>cart is empty</h1>
+                            }*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @if (TempData["cart"] != null)
+            {
+                <div class="col-12 col-lg-4">
+                    <div class="cart-summary">
+                        <h5>Cart Total</h5>
+                        <ul class="summary-table">
+                            <li><span>subtotal:</span> <span name="total">@TempData["total"]</span></li>
+                            <li><span>delivery:</span> <span>Free</span></li>
+                            <li><span>total:</span> <span>@TempData["total"]</span></li>
+                        </ul>
+                        <div class="cart-btn mt-100">
+                            <a href="@Url.Action("placeorder", "Shop")" class="btn amado-btn w-100">Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+
+            }
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    const button = document.querySelector('#add-to-cart')
+    const quantity = document.querySelector('#quantity')
+    quantity.addEventListener('change', () => {
+        // Sets the default quantity when adding the item
+        button.setAttribute('data-item-quantity', quantity.value)
+    })
+    const select = document.querySelector('#color')
+    select.addEventListener('change', () => {
+        // Sets the default frame color when adding the item
+        button.setAttribute("data-item-custom1-value", select.value)
+    })
+
+    const plus = document.querySelector('#plus')
+    const minus = document.querySelector('#minus')
+
+    plus.addEventListener('click', () => {
+        const newQuantity = (quantity.value || 0) + 1
+        quantity.value = newQuantity
+    })
+
+    minus.addEventListener('click', () => {
+        const newQuantity = (quantity.value || 0) - 1
+        quantity.value = newQuantity
+    })
+</script>
+
+
+

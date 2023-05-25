@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Ecommerce.Models.Brand>
+
+@{
+
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 70%;
+        border: 1px solid #ddd;
+        margin-top:50px;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 16px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    a{
+        font-size:20px;
+    }
+</style>
+
+<table class="">
+    <a href="~/Admin/Brands/Create/">
+        <input type="button" value="Create" class="btn btn-outline-primary" @* style="position: absolute;margin-left: 25px;"*@>
+    </a>
+    <tr>
+        <th>
+            Brand
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @style = "color:green;" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id },
+                new { onclick = "return confirm('Are sure wants to delete?');" })
+            </td>
+        </tr>
+    }
+
+</table>

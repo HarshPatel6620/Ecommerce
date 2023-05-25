@@ -1,0 +1,28 @@
+﻿@model Ecommerce.Models.Address
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="container">
+    <div>
+        @using (Html.BeginForm("Create", "Payment", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <label>name</label>
+            @Html.TextBoxFor(model => model.FirstName)
+            
+            <label>email</label>
+            @Html.TextBoxFor(model => model.Email)
+            <label>mobile</label>
+            @Html.TextBoxFor(model => model.Mobile)
+            <label>address</label>
+            @Html.TextBoxFor(model => model.Addresses)
+            <label>amount</label>
+            @Html.TextBoxFor(model => model.amount)
+            
+           <input type="submit" value="submit"/>
+        }
+    </div>
+</div>
